@@ -36,12 +36,11 @@ def get_status(secret_word, guessed_letters, turns_left, result):
     if result in (WON, LOST):
         place_holder = 'won 👍' if result == WON else 'lost 👎'
         return f"""You {place_holder}
-    The secret word is {secret_word}"""
+The secret word is {secret_word}"""
 
     ret = f"""turns_left: {turns_left}
-    guessed_letters: {" ".join(guessed_letters)}
-    {mask_word(secret_word, guessed_letters)}
-    """
+guessed_letters: {" ".join(guessed_letters)}
+{mask_word(secret_word, guessed_letters)}"""
 
     if result == ALREADY_GUESSED:
         ret = "You already guessed that letter\n" + ret
@@ -70,9 +69,10 @@ def main():
     secret_word = get_random_word()
     turns_left = 7
     guessed_letters = []
+    result = GOOD_GUESS
     print(secret_word)
     while True:
-        print(get_status(secret_word, guessed_letters, turns_left, GOOD_GUESS))
+        print(get_status(secret_word, guessed_letters, turns_left, result))
         current_guess = input("guess a letter:")
         turns_left, guessed_letters, result = process_turn(
             current_guess, secret_word, guessed_letters, turns_left

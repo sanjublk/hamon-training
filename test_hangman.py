@@ -74,7 +74,7 @@ def test_get_status_when_lost():
     turns_left = None
     result = hangman.LOST
     status = """You lost 👎
-    The secret word is amazon"""
+The secret word is amazon"""
     assert hangman.get_status(secret_word, guessed_letters, turns_left, result) == status
 
 
@@ -84,7 +84,7 @@ def test_get_status_when_won():
     turns_left = None
     result = hangman.WON
     status = """You won 👍
-    The secret word is amazon"""
+The secret word is amazon"""
     assert hangman.get_status(secret_word, guessed_letters, turns_left, result) == status
 
 
@@ -95,9 +95,8 @@ def test_get_status_when_good_guess():
     result = hangman.GOOD_GUESS
 
     status = f"""turns_left: {turns_left}
-    guessed_letters: m o n
-    mon---
-    """
+guessed_letters: m o n
+mon---"""
     assert hangman.get_status(secret_word, guessed_letters, turns_left, result) == status
 
 
@@ -108,9 +107,8 @@ def test_get_status_when_bad_guess():
     result = hangman.BAD_GUESS
 
     status = f"""turns_left: 3
-    guessed_letters: m o n
-    mon---
-    """
+guessed_letters: m o n
+mon---"""
     assert hangman.get_status(secret_word, guessed_letters, turns_left, result) == status
 
 
@@ -121,9 +119,8 @@ def test_get_status_when_already_guessed():
     result = hangman.ALREADY_GUESSED
 
     status = f"""You already guessed that letter\nturns_left: 3
-    guessed_letters: m o n
-    mon---
-    """
+guessed_letters: m o n
+mon---"""
     assert hangman.get_status(secret_word, guessed_letters, turns_left, result) == status
 
 def test_process_turn_already_guessed():
