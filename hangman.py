@@ -35,8 +35,7 @@ def mask_word(secret_word, guessed_letters):
 def get_status(secret_word, guessed_letters, turns_left, result):
     if result in (WON, LOST):
         place_holder = 'won 👍' if result == WON else 'lost 👎'
-        return f"""You {place_holder}
-The secret word is {secret_word}"""
+        return f"You {place_holder}\nThe secret word is {secret_word}"
 
     ret = f"""turns_left: {turns_left}
 guessed_letters: {" ".join(guessed_letters)}
@@ -50,19 +49,16 @@ guessed_letters: {" ".join(guessed_letters)}
 def process_turn(current_guess, secret_word, guessed_letters, turns_left):
     if current_guess in guessed_letters:
         return turns_left, guessed_letters, ALREADY_GUESSED
-    if secret_word == mask_word(secret_word, guessed_letters + [current_guess, ]):
+    elif secret_word == mask_word(secret_word, guessed_letters + [current_guess, ]):
         return turns_left, guessed_letters, WON
-    if turns_left == 1:
-        return turns_left, guessed_letters, LOST
+    elif current_guess in secret_word:
+        return turns_left, guessed_letters + [current_guess, ], GOOD_GUESS
 
-    guessed_letters = guessed_letters + [current_guess, ]
-
-    if current_guess not in secret_word:
-        turns_left -= 1
-        result = BAD_GUESS
     else:
-        result = GOOD_GUESS
-    return turns_left, guessed_letters, result
+        if turns_left == 1:
+            return turns_left, guessed_letters, LOST
+        else:
+            return turns_left-1, guessed_letters + [current_guess, ], BAD_GUESS
 
 
 def main():
